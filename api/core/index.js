@@ -4,6 +4,61 @@ export default function handler(req, res) {
   const { action } = req.query;
   const now = new Date().toISOString();
 
+  // Flat detailed endpoint list
+  const endpointList = [
+    {
+      name: "/forecast/nonlinear.precision",
+      module: "forecast",
+      status: "active",
+      lastDeploy: now,
+      confidenceScore: 0.94,
+    },
+    {
+      name: "/forecast/fib.confluence.matrix",
+      module: "forecast",
+      status: "active",
+      lastDeploy: now,
+      confidenceScore: 0.91,
+    },
+    {
+      name: "/forecast/multiverse.projector",
+      module: "forecast",
+      status: "active",
+      lastDeploy: now,
+      confidenceScore: 0.89,
+    },
+    {
+      name: "/queenbee/echo.memory",
+      module: "queenbee",
+      status: "active",
+      lastDeploy: now,
+      confidenceScore: 0.97,
+    },
+    {
+      name: "/risk/metahedge.systems",
+      module: "risk",
+      status: "active",
+      lastDeploy: now,
+      confidenceScore: 0.95,
+    },
+    {
+      name: "/options/leap.fusionstack",
+      module: "options",
+      status: "active",
+      lastDeploy: now,
+      confidenceScore: 0.96,
+    }
+  ];
+
+  // Grouped summary map
+  const systemMap = [
+    { route: '/api/forecast', endpoints: 3 },
+    { route: '/api/queenbee', endpoints: 1 },
+    { route: '/api/risk', endpoints: 1 },
+    { route: '/api/options', endpoints: 1 },
+    { route: '/api/core', endpoints: 1 },
+  ];
+
   const responses = {
     core: {
       status: 'OK',
@@ -20,18 +75,9 @@ export default function handler(req, res) {
       timestamp: now
     },
     map: {
-      systemMap: [
-        { route: '/api/forecast', endpoints: 5 },
-        { route: '/api/queenbee', endpoints: 3 },
-        { route: '/api/capital', endpoints: 3 },
-        { route: '/api/risk', endpoints: 2 },
-        { route: '/api/options', endpoints: 2 },
-        { route: '/api/market', endpoints: 2 },
-        { route: '/api/core', endpoints: 3 },
-        { route: '/api/bridge', endpoints: 1 },
-        { route: '/api/runtime', endpoints: 2 }
-      ],
-      totalEndpoints: 23,
+      systemMap,
+      endpointList,
+      totalEndpoints: endpointList.length,
       systemHealth: 'GREEN',
       lastAudit: now
     }

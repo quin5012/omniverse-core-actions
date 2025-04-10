@@ -1,36 +1,27 @@
 // File: /api/risk/index.js
-
 export default function handler(req, res) {
-  const now = new Date().toISOString();
+  const { action } = req.query;
 
-  const volatilityIndex = 27.5;
-  const marketDrawdown = 0.042;
-  const dailyLoss = 0.018;
-  const drawdownLimit = 0.05;
-
-  const response = {
-    metahedgeSystems: {
-      status: 'active',
-      riskScore: volatilityIndex * 1.5,
-      hedgeStrategy: volatilityIndex > 25 ? 'Long VIX Futures + Inverse ETFs' : 'Passive Risk Overlay',
-      capitalShielded: marketDrawdown > 0.03 ? '32%' : '10%',
-      triggerThreshold: 'VIX > 26 or SPX < -5%',
-      confidenceScore: 0.92,
-      timestamp: now
+  const responses = {
+    metahedge: {
+      status: "active",
+      riskScore: 27.5 * 1.5,
+      hedgeStrategy: "Long VIX Futures + Inverse ETFs",
+      capitalShielded: "32%",
+      triggerThreshold: "VIX > 26 or SPX < -5%"
     },
-    drawdownImmunityProtocol: {
-      status: dailyLoss > drawdownLimit ? 'halt-trading' : 'active-monitoring',
-      currentDrawdown: dailyLoss,
-      protocolTrigger: drawdownLimit,
-      capitalLockdown: dailyLoss > drawdownLimit ? '74%' : '20%',
-      contingency: 'Switch to LEAPS hedging + cash parking',
-      confidenceScore: 0.89,
-      timestamp: now
+    drawdown: {
+      status: "active-monitoring",
+      currentDrawdown: 0.018,
+      protocolTrigger: 0.05,
+      capitalLockdown: "20%",
+      contingency: "Switch to LEAPS hedging + cash parking"
     }
   };
 
-  res.status(200).json({
-    status: 'ok',
-    runtimeRiskProtocols: response
-  });
+  if (!responses[action]) {
+    return res.status(400).json({ error: 'Invalid or missing action parameter. Use `metahedge` or `drawdown`.' });
+  }
+
+  return res.status(200).json(responses[action]);
 }

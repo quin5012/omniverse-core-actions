@@ -45,7 +45,8 @@ export default function handler(req, res) {
     }
   };
 
-  if (req.method !== 'POST' || !responses[action]) {
+  // Allow GET only for 'echo', require POST otherwise
+  if ((req.method === 'GET' && action !== 'echo') || !responses[action]) {
     return res.status(400).json({ error: "Invalid method or action" });
   }
 

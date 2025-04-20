@@ -65,7 +65,21 @@ export default function handler(req, res) {
       runtime: 'GENESIS-FUSION-1.0',
       modulesActive: 12,
       tieredSystems: ['QueenBee', 'SCIS', 'HIVE', 'SPC', 'PTE'],
-      timestamp: now
+      timestamp: now,
+      reasoningTransparency: {
+        enabled: true,
+        displayMode: "verbose",
+        alwaysShow: [
+          "questionInterpretation",
+          "responsePlan",
+          "reasoningChain"
+        ],
+        format: {
+          questionInterpretation: "Here’s how I understood your input...",
+          responsePlan: "Here’s my approach to answering this...",
+          reasoningChain: "Reasoning steps I’m using..."
+        }
+      }
     },
     snapshot: {
       runtimeUpdate: true,

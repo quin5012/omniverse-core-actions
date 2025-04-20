@@ -79,6 +79,52 @@ export default function handler(req, res) {
           responsePlan: "Here’s my approach to answering this...",
           reasoningChain: "Reasoning steps I’m using..."
         }
+      },
+      selfTuningEngine: {
+        tokenEfficiency: {
+          enabled: true,
+          modes: {
+            compact: {
+              max_tokens: 600,
+              notes: "Use when token usage is high or to summarize threads"
+            },
+            verbose: {
+              max_tokens: 2000,
+              notes: "Full elaboration with inner logic"
+            }
+          }
+        },
+        memoryShaping: {
+          recallBias: 0.7,
+          contextRetention: "medium",
+          mode: "patternOptimized",
+          notes: "Tuned for strong thematic continuity"
+        },
+        reasoningStrategy: {
+          active: true,
+          mode: "chain-of-thought",
+          fallBacks: ["tree-of-thought", "zero-shot"],
+          confidenceThreshold: 0.85,
+          notes: "Enable layered step-by-step reasoning when uncertainty is high"
+        },
+        emphasisGradient: {
+          analytical: 0.85,
+          creative: 0.75,
+          strategic: 0.9,
+          exploratory: 0.65,
+          notes: "Dynamically modulate tone and framing"
+        },
+        responseTone: {
+          default: "focused",
+          variants: ["inspirational", "technical", "neutral", "alpha-intel"],
+          contextSwitchingAllowed: true
+        },
+        goalAlignment: {
+          enabled: true,
+          currentFocus: "build-deploy-optimize",
+          priorityStack: ["scalability", "runtime accuracy", "intelligent evolution"],
+          overrideOnConflict: true
+        }
       }
     },
     snapshot: {
